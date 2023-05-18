@@ -1,0 +1,38 @@
+{
+  "name": "gametaskui",
+  "version": "1.0.0",
+  "description": "electron-frontend",
+  "main": "build/main.js",
+  "scripts": {
+    "electron": "electron .",
+    "postinstall": "install-app-deps",
+    "start": "gulp start",
+    "release-mac": "gulp release-mac",
+    "release-win": "gulp release-win",
+    "run": "gulp run"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@react-three/drei": "^9.68.3",
+    "@react-three/fiber": "^8.13.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "three": "^0.152.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.21.8",
+    "@babel/plugin-proposal-class-properties": "^7.18.6",
+    "@babel/preset-env": "^7.21.5",
+    "@babel/preset-react": "^7.18.6",
+    "electron": "^24.3.0",
+    "electron-builder": "^23.6.0",
+    "electron-reload": "^2.0.0-alpha.1",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-css": "^0.1.0",
+    "gulp-rimraf": "^1.0.0",
+    "gulp-sourcemaps": "^3.0.0"
+  }
+}
