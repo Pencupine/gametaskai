@@ -3,8 +3,6 @@ use std::env;
 use std::fs;
 use std::path::{Path};
 
-use include_dir::include_dir;
-
 fn main() {
     let target_env = env::var("TARGET_ENV").unwrap_or_else(|_| String::from("mac"));
 
@@ -79,12 +77,28 @@ fn main() {
     } else {
         println!("cargo:warning=Coudn't find electron distributable {}", resources_assets_dir.display());
     } // Embed the "resources" directory as bytes
-    let resource_dir = include_dir!("resources");
+    
+    // Create a directory to 
+    let out_dir = env::var("OUT_DIR").expect("Failed to retrieve OUT_DIR");
+    let dest_dir = Path::new(&out_dir).join("resources");
+    fs::create_dir_all(&dest_dir).expect("Failed to create resource directory");
 
-    // Generate the Rust code to embed the resource directory
-    resource_dir
-        .as_variable("EMBEDDED_RESOURCES")
-        .to_file("src/embedded_resources.rs")
-        .expect("Failed to write embedded resource file");
+    // Copy the executable files to the destination directory
+    copy_executable("resources/public/gametaskui", &dest_dir);
 
+
+}
+
+// Helper function to copy the executable file to the destination directory
+fn copy_executable(src_path: &str, dest_dir: &Path) {
+    let src_file = Path::new(src_path);
+    let dest_file = dest_dir.join(src_file.file_name().expect("Invalid source path"));
+
+    fs::copy(src_file, &dest_file).expect("Failed to copy executable file");
+
+    // Make the destination file executable
+    let metadata = fs::metadata(&dest_file).expect("Failed to retrieve file metadata");
+    let mut permissions = metadata.permissions();
+    permissions.to_owned();
+    fs::set_permissions(&dest_file, permissions).expect("Failed to set file permissions");   
 }
