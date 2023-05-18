@@ -1,0 +1,8 @@
+openai:
+  account:
+    api-key:
+      ApiKey : "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"
+
+electron:
+  path: "electron"
+  is_dev: true
