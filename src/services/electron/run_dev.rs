@@ -9,15 +9,15 @@
 
 // const RESOURCE_DIR: Dir = include_dir!("resources");
 
-// pub fn run_electron(electron_config : ElectronConfig) -> Result<()> {
+pub fn run_electron(electron_config : ElectronConfig) -> Result<()> {
 
     
 //     // Execute the Electron app using the "electron" command
 //     if electron_config.is_dev {
-//         Command::new("electron")
-//         .arg(".")
-//         .current_dir(Path::new(&format!("./{}", electron_config.path)))
-//         .spawn()?;
+        Command::new("electron")
+        .arg(".")
+        .current_dir(Path::new(&format!("./{}", electron_config.path)))
+        .spawn()?;
 //     } else {
 //         println!("Hii");
 //         // Extract the executable file from the resource directory
@@ -35,25 +35,5 @@
 //             eprintln!("Executable failed with status: {}", exit_status);
 //         }
 //     }
-//     Ok(())
-// }
-
-
-// // Function to extract the executable file from the resources directory
-// fn extract_executable_from_resources(resource_path: &str) -> String {
-//     let executable_bytes = RESOURCE_DIR
-//         .get_file(resource_path)
-//         .expect("Failed to get the executable from the resource directory")
-//         .contents();
-
-   
-//     let mut executable_file = NamedTempFile::new()
-//         .expect("Failed to create a temporary file for the executable");
-
-//     executable_file
-//         .write(executable_bytes)
-//         .expect("Failed to write executable bytes to the temporary file");
-
-//     // Return the path of the extracted executable
-//     executable_file.into_temp_path().to_string_lossy().to_string()
-// }
+    Ok(())
+}

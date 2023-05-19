@@ -12,21 +12,10 @@ use crate::services::utils::configloader::{load_config};
 
 pub fn master() {
 
-
-
-    // fn start_electron_app() {
-    //     let output = Command::new("electron")
-    //         .arg(".")  // Specify the path to the Electron application directory
-    //         .spawn()
-    //         .expect("Failed to start Electron application");
-    
-    //     // Use Output here
-    // }
-
     let config = load_config();
     println!("{}", config.openai.account.api_key.ApiKey);
 
-    run_electron();
+    run_electron(config.electron);
 
     let mut timeline = TimeLine::new();
 
