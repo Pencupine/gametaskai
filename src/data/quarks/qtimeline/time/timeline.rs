@@ -2,7 +2,7 @@ use std::collections::HashMap;
 use std::hash::{Hash, Hasher};
 // ------------------------------------------------------------------
 
-use crate::data::qtimeline::time::timestamp::TimeStamp;
+use crate::data::quarks::qtimeline::time::timestamp::TimeStamp;
 
 impl Hash for TimeStamp {
     fn hash<H: Hasher>(&self, state: &mut H) {

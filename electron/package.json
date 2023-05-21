@@ -14,10 +14,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@blueprintjs/core": "^4.19.2",
     "@react-three/drei": "^9.68.3",
     "@react-three/fiber": "^8.13.0",
+    "bootstrap": "^5.2.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "reactstrap": "^9.1.10",
     "three": "^0.152.2"
   },
   "devDependencies": {

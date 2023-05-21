@@ -1,0 +1,34 @@
+.App {
+    width: 1200px;
+    height: 1000px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .Main {
+    display: flex;
+    height: calc(100% - 50px);
+  }
+  
+  .Col {
+    height: 100%;
+    overflow: auto;
+  }
+  
+  .QBox {
+    background-color: #add8e6;
+  }
+  
+  .IdeContainer {
+    background-color: #d3d3d3;
+  }
+  
+  .Ide {
+    background-color: #90ee90;
+  }
+  
+  .Chat {
+    background-color: #ffffe0;
+  }
+  

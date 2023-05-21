@@ -10,8 +10,12 @@ if (process.env.ELECTRON_ENV == 'dev') {
 
 function createWindow() {
   const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1200,
+    height: 1000,
+    useContentSize: true,
+    resizable: true,
+    minimizable: true,
+    maximizable: true,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
@@ -26,6 +30,15 @@ function createWindow() {
       slashes: true
     })
   );
+
+  mainWindow.webContents.on('did-finish-load', () => {
+    // Inject custom CSS to disable scrolling
+    mainWindow.webContents.insertCSS(`
+      html, body {
+        overflow: hidden;
+      }
+    `);
+  });
 
   // mainWindow.loadFile(path.join(__dirname, '/index.html'));
 
@@ -45,3 +58,33 @@ function createWindow() {
 
 // Event listener for the app's ready event
 app.on('ready', createWindow);
+
+
+// Quit when all windows are closed.
+app.on('window-all-closed', function() {
+	// On macOS quits explicitly with Cmd + Q
+	if (process.platform !== 'darwin') app.quit();
+});
+
+ipcMain.on('minimizeWindow', (event, value) => {
+	mainWindow.minimize();
+});
+
+ipcMain.on('maximizeWindow', (event, value) => {
+	mainWindow.maximize();
+});
+
+ipcMain.on('unmaximizeWindow', (event, value) => {
+	mainWindow.restore();
+});
+
+ipcMain.on('closeWindow', (event, value) => {
+	if (process.platform !== 'darwin') app.quit();
+});
+//
+// --------------------------------XXX
+//
+//
+//
+//
+//

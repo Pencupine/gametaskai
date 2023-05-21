@@ -1,39 +1,30 @@
-// use std::{process::Command, io::Write};
-// use std::io::Result;
-// use std::path::Path;
-// use tempfile::NamedTempFile;
+use std::sync::{Arc, Mutex};
+use std::{process::Command};
+use std::path::Path;
+// use std::thread;
 
-// use include_dir::{include_dir, Dir};
+use crate::services::utils::config::{ElectronConfig};
+use crate::services::electron::electron_app::e_app::EApp;
 
-// use crate::services::utils::config::{ElectronConfig};
-
-// const RESOURCE_DIR: Dir = include_dir!("resources");
-
-pub fn run_electron(electron_config : ElectronConfig) -> Result<()> {
-
-    
-//     // Execute the Electron app using the "electron" command
-//     if electron_config.is_dev {
-        Command::new("electron")
+#[allow(unused_variables)]
+pub fn run_electron_dev(electron_config: ElectronConfig, eapp: Arc<Mutex<EApp>>) -> std::io::Result<()> {
+    // let mut child = 
+    Command::new("electron")
         .arg(".")
         .current_dir(Path::new(&format!("./{}", electron_config.path)))
-        .spawn()?;
-//     } else {
-//         println!("Hii");
-//         // Extract the executable file from the resource directory
-//         let executable_path = extract_executable_from_resources("resources/public/gametaskui");
+        .spawn()
+        .expect("Failed to start electron application in development environment!!!");
 
-//         // Run the extracted executable
-//         let exit_status = Command::new(executable_path)
-//             .status()
-//             .unwrap_or_else(|_| panic!("Failed to execute the extracted executable"));
+    // let child_thread = thread::spawn(move || {
+    //     let exit_status = child.wait()
+    //         .expect("Failed to wait for child process");
 
-//         // Handle the exit status as needed
-//         if exit_status.success() {
-//             println!("Executable ran successfully");
-//         } else {
-//             eprintln!("Executable failed with status: {}", exit_status);
-//         }
-//     }
+    //     let mut eapp = eapp.lock().unwrap();
+    //     eapp.exit_electron_app();
+    //     println!("GTAI App: {}", eapp.init);
+    // });
+
+    // child_thread.join().expect("Failed to join the child thread");
+
     Ok(())
 }
