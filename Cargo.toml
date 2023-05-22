@@ -16,6 +16,7 @@ tempfile = "3.2"
 tinyfiledialogs = "3.0"
 tokio = { version = "1", features = ["full"]}
 warp = "0.3"
+dirs = "2.0"
 
 [build-dependencies]
 copy_dir = "0.1.2"
