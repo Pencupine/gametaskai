@@ -10,8 +10,8 @@ if (process.env.ELECTRON_ENV == 'dev') {
 
 function createWindow() {
   const mainWindow = new BrowserWindow({
-    width: 1200,
-    height: 1000,
+    width: 1920,
+    height: 1200,
     useContentSize: true,
     resizable: true,
     minimizable: true,
@@ -23,6 +23,8 @@ function createWindow() {
     },
   });
 
+  mainWindow.maximize();
+
   mainWindow.loadURL(
     url.format({
       pathname: path.join(__dirname, 'public/index.html'),
@@ -31,27 +33,18 @@ function createWindow() {
     })
   );
 
-  mainWindow.webContents.on('did-finish-load', () => {
-    // Inject custom CSS to disable scrolling
-    mainWindow.webContents.insertCSS(`
-      html, body {
-        overflow: hidden;
-      }
-    `);
-  });
-
   // mainWindow.loadFile(path.join(__dirname, '/index.html'));
 
   if (process.env.NODE_ENV === 'development') {
     mainWindow.webContents.openDevTools();
   }
 
-//   ipcMain.on('fetch-3d-object-data', (event) => {
-//     const objectData = retrieveObjectDataFromRustBackend();
+  ipcMain.on('fetch-3d-object-data', (event) => {
+    const objectData = retrieveObjectDataFromRustBackend();
 
-//     event.reply('3d-object-data', objectData);
-//   });
-}
+    event.reply('3d-object-data', objectData);
+  });
+} 
 
 // function retrieveObjectDataFromRustBackend() {
 // }

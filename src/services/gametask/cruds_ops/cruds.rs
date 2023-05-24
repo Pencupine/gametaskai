@@ -1,12 +1,13 @@
 use std::fs;
 use std::path::{Path, PathBuf};
-use warp::fs::file;
+// use warp::fs::file;
 use warp::reply::Reply;
 use serde_json;
 
 use crate::data::quarks::qdummy::dum::Dum;
+use crate::data::quarks::qobject::qcube::QCube;
 
-const DATA_DIR: &str = "gametaskai";
+// const DATA_DIR: &str = "gametaskai";
 
 #[derive(Debug)]
 struct IOError;
@@ -43,7 +44,7 @@ pub async fn read_from_file() -> Result<impl Reply, warp::Rejection> {
     println!("{}", file_path.display());
     let file_content = fs::read_to_string(&file_path).map_err(handle_io_error)?;
     
-    let data: Dum = serde_json::from_str(&file_content).map_err(|err| {
+    let data: QCube = serde_json::from_str(&file_content).map_err(|err| {
         eprintln!("error deserializing data: {}", err);
         warp::reject::not_found()
     })?;
@@ -51,8 +52,7 @@ pub async fn read_from_file() -> Result<impl Reply, warp::Rejection> {
     Ok(warp::reply::json(&data))
 }
 
-pub async fn write_to_file(data: Dum) -> Result<impl Reply, warp::Rejection> {
-    println!("Hii");
+pub async fn write_to_file(data: QCube) -> Result<impl Reply, warp::Rejection> {
     let data_dir = get_data_directory().map_err(handle_io_error)?;
     
     if !data_dir.exists() {
